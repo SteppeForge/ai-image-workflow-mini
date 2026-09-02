@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+*.local
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
+coverage/
+
+# ТЗ работодателя — их документ, в поставку не входит
+docs/task-spec-6-13.html
