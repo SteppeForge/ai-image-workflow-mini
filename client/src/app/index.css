@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+@import '@xyflow/react/dist/style.css';
+
+/*
+ * Собственные точки перелома тулбара. Встроенного md (768px) не хватало:
+ * полный ряд требует ~1300px, и на планшетах он рассыпался в две-три строки.
+ *   tablet (900px) — с неё вместо меню работает свитч режима;
+ *   xl (1280px, встроенный) — полный ряд со всеми кнопками;
+ *   wide (1440px) — только здесь кнопка запуска получает подпись рядом с иконкой.
+ */
+@theme {
+  --breakpoint-tablet: 900px;
+  --breakpoint-wide: 1440px;
+}
+
+body {
+  margin: 0;
+  background: #0a0a0a;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/*
+ * Тонкий тёмный скроллбар для шапки, тулбара и поля промпта.
+ * Системный скроллбар Windows толстый и светлый — в тёмной теме он режет глаз.
+ * Стандартные свойства покрывают Chrome/Edge 121+ и Firefox.
+ */
+.slim-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 transparent;
+}
+
+/*
+ * Появление всплывающих панелей (Select, DropdownMenu). Стрелка в кнопке
+ * уже анимирована, и без этого панель возникала рывком — две части одного
+ * жеста выглядели рассинхронизированно. Закрытие намеренно без анимации:
+ * взгляд в этот момент уже на выбранном значении, а плавное скрытие потребовало бы
+ * держать панель в DOM и вести лишнее состояние в компоненте.
+ */
+@keyframes popup-in {
+  from {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+}
+
+.popup-in {
+  animation: popup-in 130ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup-in {
+    animation: none;
+  }
+}
